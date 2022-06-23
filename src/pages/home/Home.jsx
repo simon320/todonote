@@ -7,9 +7,10 @@ import { ListContext } from '../../context/todoListContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { MdDelete } from 'react-icons/md';
+import { DivContainerHomeStyled, ButtonDownloadStyled, DivContainerListNoteStyled, DivStyled, LinkStyled } from './homeStyles';
 
 const Home = () => {
-  const { setTitle, listTitle, setListTitle } = useContext(ListContext)
+  const { setTitle, listTitle, setListTitle, list, setList } = useContext(ListContext)
   const [newTitle, setNewTitle] = useState("")
   const [isReadyForInstall, setIsReadyForInstall] = useState(false);
   const navigate = useNavigate()
@@ -50,26 +51,27 @@ const Home = () => {
     e.preventDefault()
     if (newTitle !== "") {
       listTitle.push({
+        id: uuidv4(),
         newTitle
       })
-
       setListTitle(listTitle);
       setTitle(newTitle);
-
-
     }
-    setTimeout(()=>{
-      setNewTitle("");
-      navigate("/note");
-    }, 200)
+    setNewTitle("");
+    navigate("/note");
   }
 
-    console.log(listTitle);
+  const handleDelete = (listnote) => {
+    setList(list.filter((item)=> item.title !== listnote.newTitle));
+    setListTitle(listTitle.filter((item)=> item.id !== listnote.id));
+  }
+
 
   return (
-    <div style={{background: "#4e727e", height: "100%"}}>
+    <DivContainerHomeStyled style={{background: "#4e727e", height: "100%"}}>
 
       {isReadyForInstall && (<button onClick={downloadApp}>Descargar App</button>)}
+      <ButtonDownloadStyled onClick={downloadApp}>Descargar App</ButtonDownloadStyled>
       <Title />
       <DivTodoStyled onSubmit={handleCreateList}>
       
@@ -82,29 +84,29 @@ const Home = () => {
         <ButtonStyled type='submit'><FaPlus></FaPlus></ButtonStyled>
       </DivInputStyled>
 
-      <DivContainerListStyled>
+      <DivStyled>
         {
             listTitle.map((listnote)=> {
                 return (
-                  <DivContainerNoteStyled
+                  <DivContainerListNoteStyled
                   key={uuidv4()}>
-                    <Link
+                    <LinkStyled
                       onClick={() => setTitle(listnote.newTitle)}
                       to={`/note`}
                     >
                       {listnote.newTitle}
-                    </Link>
-                    <ButtonStyled>
+                    </LinkStyled>
+                    <ButtonStyled onClick={()=> handleDelete(listnote)}>
                       <MdDelete></MdDelete>
                     </ButtonStyled>
-                  </DivContainerNoteStyled>
+                  </DivContainerListNoteStyled>
                 );})
         }
-    </DivContainerListStyled>
+    </DivStyled>
 
     </DivTodoStyled>
 
-    </div>
+    </DivContainerHomeStyled>
   )
 }
 
