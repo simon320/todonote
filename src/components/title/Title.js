@@ -3,7 +3,7 @@ import { TitleStyled } from './TitleStyles'
 
 const Title = () => {
   return (
-    <TitleStyled>to do Note</TitleStyled>
+    <TitleStyled>misNotas</TitleStyled>
   )
 }
 

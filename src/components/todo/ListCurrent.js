@@ -7,7 +7,7 @@ import { ButtonStyled, DivButtonStyles, DivContainerListStyled, DivContainerNote
 
 
 const ListCurrent = () => {
-    const { list, setList } = useContext(ListContext);
+    const { list, setList, title } = useContext(ListContext);
 
     const handleDelete = (note) => {
         setList(list.filter((item)=> item.id !== note.id));
@@ -31,6 +31,7 @@ const ListCurrent = () => {
         {
             list.map((note)=> {
                 return (
+                note.title == title &&
                 <DivContainerNoteStyled key={note.id}>
 
                     <ParagraphStyled completed={note.completed}>{note.input}</ParagraphStyled>

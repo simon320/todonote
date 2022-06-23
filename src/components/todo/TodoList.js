@@ -5,10 +5,11 @@ import { ListContext } from '../../context/todoListContext';
 import ListCurrent from './ListCurrent';
 import { ButtonStyled } from './ListCurrentStyles';
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom';
 
 
 const TodoList = () => {
-  const { list, setList } = useContext(ListContext);
+  const { list, setList, title } = useContext(ListContext);
   const [input, setInput] = useState("");
 
   const handleAdd = () => {
@@ -16,6 +17,7 @@ const TodoList = () => {
     if (input !== "") {
       list.push({
         id: uuidv4(),
+        title,
         completed: false,
         input
       })
@@ -28,6 +30,8 @@ const TodoList = () => {
 
   return (
     <DivTodoStyled onSubmit={handleAdd}>
+
+      <Link to="/">home</Link>
       
       <DivInputStyled>
         <InputTodoStyled 
