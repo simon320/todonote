@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export const DivTodoStyled = styled.form`
     width: 100vw;
@@ -21,3 +23,10 @@ export const InputTodoStyled = styled.input`
     padding-left: 15px;
     margin-bottom: 2.5rem;
 `
+// export const LinkStyled = styled(Link)`
+//     text-decoration: none;
+//     font-size: 1.2rem;
+//     font-weight: 700;
+//     fill: #000;
+//     margin-left: 1rem;
+// `

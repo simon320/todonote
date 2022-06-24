@@ -5,7 +5,7 @@ import { ListContext } from '../../context/todoListContext';
 import ListCurrent from './ListCurrent';
 import { ButtonStyled } from './ListCurrentStyles';
 import { v4 as uuidv4 } from 'uuid';
-import { Link } from 'react-router-dom';
+
 
 
 const TodoList = () => {
@@ -31,7 +31,6 @@ const TodoList = () => {
   return (
     <DivTodoStyled onSubmit={handleAdd}>
 
-      <Link to="/">home</Link>
       
       <DivInputStyled>
         <InputTodoStyled 

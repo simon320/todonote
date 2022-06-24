@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const DivContainerHomeStyled = styled.div`
     display: flex;
@@ -25,15 +26,19 @@ export const DivStyled = styled.div`
 export const DivContainerListNoteStyled = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 250px;
+    width: 330px;
     margin: .5rem 0;
     border-radius: 5px;
     padding: .5rem;
     background: #aaeeff40;
 `
 
-export const LinkStyled = styled.link`
+export const LinkStyled = styled(Link)`
     text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #000;
+    margin-left: 1rem;
 `
