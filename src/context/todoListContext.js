@@ -8,7 +8,6 @@ export const ListProvider = ({ children }) => {
     const [list, setList] = useLocalStorage('list', []);
     const [listTitle, setListTitle] = useLocalStorage('listTitle', []);
     const [title, setTitle] = useLocalStorage('title', "");
-    const [titleId, setTitleId] = useLocalStorage('titleId', "");
 
     return (
         <ListContext.Provider value={{ 

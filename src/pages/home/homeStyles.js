@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
+
 
 export const DivContainerHomeStyled = styled.div`
     display: flex;
@@ -39,6 +41,23 @@ export const LinkStyled = styled(Link)`
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: 700;
-    color: #000;
+    color: #fff;
     margin-left: 1rem;
+`
+
+export const ButtonAdd = styled.button`
+    border: none;
+    border-radius: 35px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: #6dcccc;
+    box-shadow: 3px 3px 6px #1c2c30;
+    color: #000;
+    padding:0.7rem; 
+    width: max-content;
+    margin: 2rem auto; 
+`
+
+export const DeleteStyled = styled(MdDelete)`
+    color: #222222;
 `

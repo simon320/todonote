@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { ListContext } from '../../context/todoListContext';
 import { MdDelete } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
 import { AiOutlineReload } from 'react-icons/ai';
-import { ButtonStyled, DivButtonStyles, DivContainerListStyled, DivContainerNoteStyled, ParagraphStyled } from './ListCurrentStyles';
+import { ButtonStyled, DivStyles, DivContainerListStyled, DivContainerNoteStyled, ParagraphStyled } from './ListCurrentStyles';
 
 
 const ListCurrent = () => {
@@ -12,7 +12,6 @@ const ListCurrent = () => {
     const handleDelete = (note) => {
         setList(list.filter((item)=> item.id !== note.id));
     }
-
 
     const handleCompleted = (note) => {
         let newList = [];
@@ -28,28 +27,32 @@ const ListCurrent = () => {
 
   return (
     <DivContainerListStyled>
-        {
-            list.map((note)=> {
-                return (
-                note.title == title &&
-                <DivContainerNoteStyled key={note.id}>
+      {list.map((note) => {
+        return (
+          note.title == title && (
+            <DivContainerNoteStyled>
+              <DivStyles>
+                <ButtonStyled onClick={() => handleCompleted(note)}>
+                  {note.completed ? (
+                    <AiOutlineReload></AiOutlineReload>
+                  ) : (
+                    <FaCheck></FaCheck>
+                  )}
+                </ButtonStyled>
 
-                    <ParagraphStyled completed={note.completed}>{note.input}</ParagraphStyled>
-
-                    <DivButtonStyles>
-                        <ButtonStyled onClick={() => handleCompleted(note)}>
-                        {
-                            note.completed ? <AiOutlineReload></AiOutlineReload> : <FaCheck></FaCheck>
-                        }
-                        </ButtonStyled>
-                        <ButtonStyled deleted onClick={() => handleDelete(note)}><MdDelete></MdDelete></ButtonStyled>
-                    </DivButtonStyles>
-
-                </DivContainerNoteStyled>
-            )})
-        }
+                <ParagraphStyled completed={note.completed}>
+                  {note.input}
+                </ParagraphStyled>
+              </DivStyles>
+              <ButtonStyled deleted onClick={() => handleDelete(note)}>
+                <MdDelete></MdDelete>
+              </ButtonStyled>
+            </DivContainerNoteStyled>
+          )
+        );
+      })}
     </DivContainerListStyled>
-  )
+  );
 }
 
 export default ListCurrent

@@ -1,18 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa';
-import Title from '../../components/title/Title';
-import { ButtonStyled, DivContainerListStyled, DivContainerNoteStyled, ParagraphStyled, DivButtonStyled } from '../../components/todo/ListCurrentStyles';
-import { DivInputStyled, DivTodoStyled, InputTodoStyled } from '../../components/todo/TodoListStyles';
+import { ButtonStyled } from '../../components/todo/ListCurrentStyles';
+import { DivTodoStyled, InputTodoStyled } from '../../components/todo/TodoListStyles';
 import { ListContext } from '../../context/todoListContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { DivContainerHomeStyled, ButtonDownloadStyled, DivStyled, LinkStyled, ButtonAdd, DeleteStyled } from './homeStyles';
+import { motion } from 'framer-motion'
 import { MdDelete } from 'react-icons/md';
-import { DivContainerHomeStyled, ButtonDownloadStyled, DivContainerListNoteStyled, DivStyled, LinkStyled } from './homeStyles';
+
+
 
 const Home = () => {
   const { setTitle, listTitle, setListTitle, list, setList } = useContext(ListContext)
   const [newTitle, setNewTitle] = useState("")
   const [isReadyForInstall, setIsReadyForInstall] = useState(false);
+  const [inputVisible, setInputVisible] = useState(false);
+  const [homeVisible, setHomeVisible] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -56,9 +60,13 @@ const Home = () => {
       })
       setListTitle(listTitle);
       setTitle(newTitle);
+      setHomeVisible(true)
     }
+    setInputVisible(false)
     setNewTitle("");
-    navigate("/note");
+    setTimeout(()=> {
+      navigate("/note");
+    }, 500)
   }
 
   const handleDelete = (listnote) => {
@@ -68,45 +76,88 @@ const Home = () => {
 
 
   return (
-    <DivContainerHomeStyled style={{background: "#4e727e", height: "100%"}}>
 
-      {isReadyForInstall && (<button onClick={downloadApp}>Descargar App</button>)}
-      <ButtonDownloadStyled onClick={downloadApp}>Descargar App</ButtonDownloadStyled>
-      <Title />
-      <DivTodoStyled onSubmit={handleCreateList}>
-      
-      <DivInputStyled>
-        <InputTodoStyled 
-          type="text" 
-          value={newTitle} 
-          onChange={(e)=> setNewTitle(e.target.value)}
-          placeholder='Crea una lista nueva'/>
-        <ButtonStyled type='submit'><FaPlus></FaPlus></ButtonStyled>
-      </DivInputStyled>
+      <DivContainerHomeStyled className={homeVisible && 'hidden'}>
 
-      <DivStyled>
-        {
-            listTitle.map((listnote)=> {
-                return (
-                  <DivContainerListNoteStyled
-                  key={uuidv4()}>
-                    <LinkStyled
-                      onClick={() => setTitle(listnote.newTitle)}
-                      to={`/note`}
-                    >
-                      {listnote.newTitle}
-                    </LinkStyled>
-                    <ButtonStyled onClick={()=> handleDelete(listnote)}>
-                      <MdDelete></MdDelete>
-                    </ButtonStyled>
-                  </DivContainerListNoteStyled>
-                );})
+        {isReadyForInstall && (<ButtonDownloadStyled onClick={downloadApp}>Descargar App</ButtonDownloadStyled>)}
+
+        <motion.h1
+          animate={{
+            x: [-600, 8, -5, 0],
+            rotateY: [0, 34, 0] 
+          }}
+        >
+          misNotas
+        </motion.h1>
+
+        <DivTodoStyled onSubmit={handleCreateList}>
+        
+        {inputVisible &&
+          <motion.div 
+          className='container-div'
+          animate={{
+            opacity:[0, 1],
+          }}
+          transition={{
+            ease: 'easeOut',
+            duration: 1.5,
+            type: 'spring'
+          }}
+        >
+            <InputTodoStyled 
+                type="text" 
+                value={newTitle} 
+                onChange={(e)=> setNewTitle(e.target.value)}
+                placeholder="Crear una lista..."
+            />
+            <ButtonStyled type='submit'>
+                <FaPlus />
+            </ButtonStyled>
+          </motion.div>
         }
-    </DivStyled>
 
-    </DivTodoStyled>
+          
+          <DivStyled>
+              {
+                listTitle.map((listnote)=> {
+                  return (
+                        <motion.section
+                          className='container-list'
+                          key={uuidv4()}
+                        >
+                          <LinkStyled
+                            onClick={() => setTitle(listnote.newTitle)}
+                            to={`/note`}
+                          >
+                            {listnote.newTitle}
+                          </LinkStyled>
+                          <ButtonStyled dark deleted onClick={()=> handleDelete(listnote)}>
+                            <DeleteStyled />
+                          </ButtonStyled>
+                        </motion.section>
+                      );
+                })
+              }
+          </DivStyled>
 
-    </DivContainerHomeStyled>
+        {!inputVisible &&
+          <motion.button 
+            onClick={() => setInputVisible(true)}
+            className='button-add'
+            animate={{
+              opacity: [0, 1]
+            }}
+              transition= {{
+                duration: 1.5,
+                delay: 0.2
+              }}
+          >
+            AGREAR LISTA
+          </motion.button>
+        }
+        </DivTodoStyled>
+      </DivContainerHomeStyled>
+
   )
 }
 
