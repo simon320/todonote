@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react'
-import { DivTodoStyled, InputTodoStyled } from './TodoListStyles'
-import { ListContext } from '../../context/todoListContext';
-import ListCurrent from './ListCurrent';
 import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion'
-import { ButtonStyled } from './ListCurrentStyles';
 import { FaPlus } from 'react-icons/fa';
+import { ListContext } from '../../context/todoListContext';
+import ListCurrent from './ListCurrent';
+import { ButtonStyled } from './ListCurrentStyles';
+import { DivTodoStyled, InputTodoStyled } from './TodoListStyles'
 
 
 const TodoList = () => {
@@ -34,11 +34,12 @@ const TodoList = () => {
     
       <motion.div 
         className='container-div'
+        initial={{opacity: 0}}
         animate={{
           opacity: [0, 1]
         }}
         transition={{
-          duration: 2,
+          duration: 1,
           delay: 0.5
         }}
       >

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import TodoList from '../../components/todo/TodoList';
-import { ListContext } from '../../context/todoListContext';
-import { LinkArrowStyled } from './noteStyles';
-import { FaArrowLeft } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { FaArrowLeft } from 'react-icons/fa';
+import { ListContext } from '../../context/todoListContext';
+import TodoList from '../../components/todo/TodoList';
+import { LinkArrowStyled } from './noteStyles';
 
 const Note = () => {
   const { title } = useContext(ListContext);

@@ -1,5 +1,5 @@
 import "./App.css"
-import React, { useEffect } from "react";
+import React from "react";
 import { ListProvider } from "./context/todoListContext";
 import { Routes, Route } from "react-router-dom";
 import Note from "./pages/note/Note";

@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
+import { motion } from 'framer-motion'
+import { v4 as uuidv4 } from 'uuid';
 import { ButtonStyled } from '../../components/todo/ListCurrentStyles';
 import { DivTodoStyled, InputTodoStyled } from '../../components/todo/TodoListStyles';
 import { ListContext } from '../../context/todoListContext';
-import { useNavigate, Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { DivContainerHomeStyled, ButtonDownloadStyled, DivStyled, LinkStyled, ButtonAdd, DeleteStyled } from './homeStyles';
-import { motion } from 'framer-motion'
-import { MdDelete } from 'react-icons/md';
+import { DivContainerHomeStyled, ButtonDownloadStyled, DivStyled, LinkStyled, DeleteStyled } from './homeStyles';
 
 
 
@@ -21,12 +20,9 @@ const Home = () => {
 
   useEffect(() => {
     window.addEventListener("beforeinstallprompt", (event) => {
-      // Prevent the mini-infobar from appearing on mobile.
       event.preventDefault();
       console.log("👍", "beforeinstallprompt", event);
-      // Stash the event so it can be triggered later.
       window.deferredPrompt = event;
-      // Remove the 'hidden' class from the install button container.
       setIsReadyForInstall(true);
     });
   }, []);
@@ -35,19 +31,14 @@ const Home = () => {
     console.log("👍", "butInstall-clicked");
     const promptEvent = window.deferredPrompt;
     if (!promptEvent) {
-      // The deferred prompt isn't available.
       console.log("oops, no prompt event guardado en window");
       return;
     }
-    // Show the install prompt.
+
     promptEvent.prompt();
-    // Log the result
     const result = await promptEvent.userChoice;
     console.log("👍", "userChoice", result);
-    // Reset the deferred prompt variable, since
-    // prompt() can only be called once.
     window.deferredPrompt = null;
-    // Hide the install button.
     setIsReadyForInstall(false);
   }
 
@@ -121,20 +112,21 @@ const Home = () => {
               {
                 listTitle.map((listnote)=> {
                   return (
-                        <motion.section
+                      <div key={uuidv4()} style={{display: 'flex', alignItems: 'center'}}>
+                        <LinkStyled
                           className='container-list'
                           key={uuidv4()}
-                        >
-                          <LinkStyled
-                            onClick={() => setTitle(listnote.newTitle)}
-                            to={`/note`}
+                          onClick={() => setTitle(listnote.newTitle)}
+                          to={`/note`}
                           >
+
                             {listnote.newTitle}
-                          </LinkStyled>
+
+                        </LinkStyled>
                           <ButtonStyled dark deleted onClick={()=> handleDelete(listnote)}>
                             <DeleteStyled />
                           </ButtonStyled>
-                        </motion.section>
+                        </div>
                       );
                 })
               }
