@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { motion } from 'framer-motion'
 import { v4 as uuidv4 } from 'uuid';
@@ -7,6 +7,7 @@ import { ButtonStyled } from '../../components/todo/ListCurrentStyles';
 import { DivTodoStyled, InputTodoStyled } from '../../components/todo/TodoListStyles';
 import { ListContext } from '../../context/todoListContext';
 import { DivContainerHomeStyled, ButtonDownloadStyled, DivStyled, LinkStyled, DeleteStyled } from './homeStyles';
+import pokeball from '../../assets/pokeAPI/pokeball.png'
 
 
 
@@ -71,6 +72,10 @@ const Home = () => {
       <DivContainerHomeStyled className={homeVisible && 'hidden'}>
 
         {isReadyForInstall && (<ButtonDownloadStyled onClick={downloadApp}>Descargar App</ButtonDownloadStyled>)}
+
+        <NavLink style={{position: 'relative', left: 'calc(100vw - 60px)'}} to={'/pokedex'}>
+          <img style={{ width: '40px', height: '40px' }} src={pokeball} alt="Pokeball" />
+        </NavLink>
 
         <motion.h1
           animate={{
