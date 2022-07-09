@@ -144,7 +144,7 @@ const Home = () => {
                 delay: 0.2
               }}
           >
-            AGREAR LISTA
+            AGREGAR LISTA
           </motion.button>
         }
         </DivTodoStyled>
