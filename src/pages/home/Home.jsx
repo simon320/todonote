@@ -9,7 +9,6 @@ import { ListContext } from '../../context/todoListContext';
 import { DivContainerHomeStyled, ButtonDownloadStyled, DivStyled, LinkStyled, DeleteStyled } from './homeStyles';
 
 
-
 const Home = () => {
   const { setTitle, listTitle, setListTitle, list, setList } = useContext(ListContext)
   const [newTitle, setNewTitle] = useState("")
@@ -70,7 +69,7 @@ const Home = () => {
 
       <DivContainerHomeStyled className={homeVisible && 'hidden'}>
 
-        {isReadyForInstall && (<ButtonDownloadStyled onClick={downloadApp}>Descargar App</ButtonDownloadStyled>)}
+        {isReadyForInstall && (<ButtonDownloadStyled onClick={downloadApp}>Instalar App</ButtonDownloadStyled>)}
 
         <motion.h1
           animate={{

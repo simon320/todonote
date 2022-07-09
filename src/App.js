@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import Note from "./pages/note/Note";
 import Home from "./pages/home/Home";
 
-
 function App() {
 
   return (

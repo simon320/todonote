@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 
@@ -7,16 +7,34 @@ export const DivContainerHomeStyled = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 2rem;
+    width: 100vw;
+`
+const borderFlicker = keyframes`
+    from {
+        border: 4px solid #6dcccc;
+    }
+    to {
+        border: 4px solid transparent;
+    }
 `
 
 export const ButtonDownloadStyled = styled.button`
-    border: none;
+    border: 2px solid transparent;
     border-radius: 25px;
+    background: #d3d3d3;
     width: 125px;
+    height: 40px;
     padding: 8px;
     position: absolute;
     right: 0;
-    margin: 0 25px;
+    margin: 5px 25px;
+
+    animation: ${borderFlicker} 1s 5 alternate;
+
+    &:hover {
+        background: #fff;
+        border: 4px solid #d3d3d3; 
+    }
 `
 
 export const DivStyled = styled.div`
